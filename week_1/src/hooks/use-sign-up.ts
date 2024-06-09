@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { validationEmail, validationPassword } from '../utils/validation';
 import { useSignUpApi } from './use-sign-up-api';
 
-const ERROR_MSG = {
+export const ERROR_MSG = {
   required: '이메일과 비밀번호는 필수값입니다.',
   email: '이메일 형식이 아닙니다.',
   password: '최소 8자리, 문자,숫자,특수문자 조합이여야합니다.',

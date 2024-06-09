@@ -13,6 +13,7 @@ export const SignUpForm = ({
   return (
     <>
       <TextField
+        data-testid="email"
         id="email"
         label="이메일"
         type="email"
@@ -29,6 +30,7 @@ export const SignUpForm = ({
         }}
       />
       <TextField
+        data-testid="password"
         id="password"
         label="비밀번호"
         type="password"
@@ -46,6 +48,7 @@ export const SignUpForm = ({
       />
 
       <SubmitButton
+        data-testid="submit-button"
         variant="contained"
         size="large"
         fullWidth
