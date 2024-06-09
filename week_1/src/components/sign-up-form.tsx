@@ -14,6 +14,7 @@ export const SignUpForm = ({
     <>
       <TextField
         data-testid="email"
+        data-cy="email"
         id="email"
         label="이메일"
         type="email"
