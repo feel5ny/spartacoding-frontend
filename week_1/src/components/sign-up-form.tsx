@@ -13,11 +13,12 @@ export const SignUpForm = ({
   return (
     <>
       <TextField
-        data-testid="email"
         id="email"
         label="이메일"
         type="email"
-        //
+        inputProps={{
+          'data-testid': 'email'
+        }}
         fullWidth
         variant="outlined"
         margin="normal"
@@ -30,10 +31,12 @@ export const SignUpForm = ({
         }}
       />
       <TextField
-        data-testid="password"
         id="password"
         label="비밀번호"
         type="password"
+        inputProps={{
+          'data-testid': 'password'
+        }}
         //
         fullWidth
         variant="outlined"

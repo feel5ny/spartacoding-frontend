@@ -42,6 +42,7 @@ export const SignUpCard = () => {
       <Backdrop
         sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={isPending}
+        data-testid="loader"
       >
         <CircularProgress color="inherit" />
       </Backdrop>
