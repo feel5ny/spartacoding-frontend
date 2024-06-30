@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.24.7",
+    "@playwright/test": "^1.45.0",
     "@testing-library/dom": "^10.1.0",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^16.0.0",
