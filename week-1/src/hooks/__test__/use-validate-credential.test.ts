@@ -1,6 +1,5 @@
-import { renderHook } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 import { useValidateCredential } from '../use-validate-credential';
-
 // useValidateCredential -> 에러텍스트를 관리하는 hook
 describe('useValidateCredential', () => {
   // 성공
@@ -16,6 +15,10 @@ describe('useValidateCredential', () => {
 
     // When
     const { result } = renderHook(useValidateCredential);
+
+    act(() => {
+      result.current.validateCredential(email, password);
+    });
 
     // Then
     expect(result.current.emailErrorText).toBe(expectedResult.emailErrorText);
