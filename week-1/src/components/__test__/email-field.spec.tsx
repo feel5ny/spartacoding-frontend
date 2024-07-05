@@ -16,6 +16,9 @@
  * * 이메일 데이터를 관리해야한다.
  * * 이메일 validation을 관리해야한다.
  */
+import { fireEvent, render } from '@testing-library/react';
+import { EMAIL_ERROR_TEXT } from '../../hooks/use-validate-credential';
+import { EmailField } from '../email-field';
 
 // 의존성 mocking
 /**
@@ -26,7 +29,20 @@
 
 describe('EmailField', () => {
   // 성공
-  it('유저가 데이터를 입력했을 때 이메일 형식에 맞으면, 에러텍스트는 노출되지 않는다.', () => {});
+  it('유저가 데이터를 입력했을 때 이메일 형식에 맞으면, 에러텍스트는 노출되지 않는다.', () => {
+    // Given
+    const email = 'absd@asdf.com';
+
+    // When
+    const { getByTestId, queryByText } = render(<EmailField />);
+    // input form
+    const emailInput = getByTestId('email');
+    // form 이메일 작성된 것 처럼
+    fireEvent.change(emailInput, { target: { value: email } });
+
+    // Then
+    expect(queryByText(EMAIL_ERROR_TEXT)).not.toBeInTheDocument();
+  });
 
   // 예외
   it('유저가 데이터를 입력했을 때 이메일 형식에 맞지 않으면, 에러텍스트가 노출된다.', () => {});

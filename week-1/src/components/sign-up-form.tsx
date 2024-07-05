@@ -1,9 +1,11 @@
 import { Button, ButtonProps, styled } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { EmailField } from './email-field';
 
 export const SignUpForm = () => {
   return (
     <>
+      <EmailField />
       <SubmitButton
         data-testid="submit-button"
         variant="contained"
