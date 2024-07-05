@@ -17,8 +17,12 @@
  * * 이메일 validation을 관리해야한다.
  */
 import { fireEvent, render } from '@testing-library/react';
-import { EMAIL_ERROR_TEXT } from '../../hooks/use-validate-credential';
+import {
+  EMAIL_ERROR_TEXT,
+  useValidateCredential,
+} from '../../hooks/use-validate-credential';
 import { EmailField } from '../email-field';
+import { describe, it, Mock, vi } from 'vitest';
 
 // 의존성 mocking
 /**
@@ -27,11 +31,24 @@ import { EmailField } from '../email-field';
  * TODO: 1. mocking을 하고 / 2. Given환경에 맞는 mock데이터를 반환하게 만든다.
  */
 
+vi.mock('../../hooks/use-validate-credential', async (importOriginal) => {
+  const mod = await importOriginal<
+    typeof import('../../hooks/use-validate-credential')
+  >();
+  return { ...mod, useValidateCredential: vi.fn() };
+});
+
+const _useValidateCredential = useValidateCredential as Mock;
+
 describe('EmailField', () => {
   // 성공
   it('유저가 데이터를 입력했을 때 이메일 형식에 맞으면, 에러텍스트는 노출되지 않는다.', () => {
     // Given
     const email = 'absd@asdf.com';
+    _useValidateCredential.mockReturnValue({
+      emailErrorText: '',
+      validateCredential: () => null,
+    });
 
     // When
     const { getByTestId, queryByText } = render(<EmailField />);
