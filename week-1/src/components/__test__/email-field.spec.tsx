@@ -62,5 +62,22 @@ describe('EmailField', () => {
   });
 
   // 예외
-  it('유저가 데이터를 입력했을 때 이메일 형식에 맞지 않으면, 에러텍스트가 노출된다.', () => {});
+  it('유저가 데이터를 입력했을 때 이메일 형식에 맞지 않으면, 에러텍스트가 노출된다.', () => {
+    // Given
+    const email = 'absdasdf.com';
+    _useValidateCredential.mockReturnValue({
+      emailErrorText: EMAIL_ERROR_TEXT,
+      validateCredential: () => null,
+    });
+
+    // When
+    const { getByTestId, queryByText } = render(<EmailField />);
+    // input form
+    const emailInput = getByTestId('email');
+    // form 이메일 작성된 것 처럼
+    fireEvent.change(emailInput, { target: { value: email } });
+
+    // Then
+    expect(queryByText(EMAIL_ERROR_TEXT)).toBeInTheDocument();
+  });
 });
