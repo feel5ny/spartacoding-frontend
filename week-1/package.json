@@ -12,6 +12,8 @@
     "test:run": "vitest run"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@mui/material": "^5.15.21",
     "@supabase/supabase-js": "^2.44.2",
     "@suspensive/react": "^2.4.0",
