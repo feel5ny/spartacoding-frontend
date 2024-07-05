@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mui/material": "^5.15.21",
     "@supabase/supabase-js": "^2.44.2",
     "@suspensive/react": "^2.4.0",
     "react": "^18.3.1",
