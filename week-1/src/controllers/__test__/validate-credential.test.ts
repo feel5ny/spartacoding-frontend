@@ -8,6 +8,8 @@
  * !4번,5번 반복
  */
 
+import { validateCredential } from '../validate-credential';
+
 /**
  * @userStory
  * * 유저는 이메일과 비밀먼호를 필수로 입력해야 회원가입할 수 있다.
@@ -16,7 +18,21 @@
 // validateCredentials
 describe('validate credential', () => {
   // 성공 case
-  it('이메일과 비밀번호가 조건에 충족한다면, 모두 유효하다고 반환해야한다.', () => {});
+  it('이메일과 비밀번호가 조건에 충족한다면, 모두 유효하다고 반환해야한다.', () => {
+    // Given
+    const email = 'sparta@abc.com';
+    const password = '1234abcd!@#';
+
+    // When
+    const result = validateCredential(email, password);
+
+    // Then
+    expect(result).toEqual({
+      isValidEmail: true,
+      isValidPassword: true,
+      isValidAll: true,
+    });
+  });
 
   // 실패 case
   it('이메일이 존재하지 않으면, 이메일이 유효하지 않다고 반환해야한다.', () => {});
