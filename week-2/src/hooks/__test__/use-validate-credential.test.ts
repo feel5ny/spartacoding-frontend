@@ -13,7 +13,7 @@ describe('use-validate-credential', () => {
     const { result } = renderHook(useValidateCredential);
 
     act(() => {
-      result.current.validateCredential(invalidEmail);
+      result.current.validateCredential({ email: invalidEmail, password: '' });
     });
 
     // Then

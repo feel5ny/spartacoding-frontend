@@ -1,11 +1,12 @@
 import { useState } from 'react';
+import { useValidateCredential } from '../hooks/use-validate-credential';
 
 export const SignUpPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const disabled = !email || !password;
 
-  const { emailErrorMessage, validate } = useValidateCredential();
+  const { emailErrorMessage, validateCredential } = useValidateCredential();
 
   return (
     <>
@@ -31,7 +32,7 @@ export const SignUpPage = () => {
         data-testid="submit-button"
         disabled={disabled}
         onClick={() => {
-          validate({ email, password });
+          validateCredential({ email, password });
         }}
       >
         제출

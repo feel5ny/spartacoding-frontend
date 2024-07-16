@@ -10,19 +10,30 @@
  */
 
 import { useState } from 'react';
-import { validateEmailPattern } from '../utils/validate-format';
+import { validateEmailPattern, validatePasswordPattern } from '../utils/validate-format';
 
 export const useValidateCredential = () => {
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
 
-  const validateCredential = (email: string) => {
+  const validateCredential = ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) => {
     if (email && !validateEmailPattern(email)) {
       setEmailErrorMessage(ERROR_EMAIL_MSG);
+    }
+    if (password && !validatePasswordPattern(password)) {
+      setPasswordErrorMessage(ERROR_PASSWORD_MSG);
     }
   };
 
   return {
     emailErrorMessage,
+    passwordErrorMessage,
     validateCredential,
   };
 };
