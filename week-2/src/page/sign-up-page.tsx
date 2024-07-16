@@ -5,6 +5,8 @@ export const SignUpPage = () => {
   const [password, setPassword] = useState('');
   const disabled = !email || !password;
 
+  const { emailErrorMessage, validate } = useValidateCredential();
+
   return (
     <>
       <input
@@ -14,6 +16,9 @@ export const SignUpPage = () => {
           setEmail(event.target.value);
         }}
       />
+      {emailErrorMessage && (
+        <p data-testid="helper-text">{emailErrorMessage}</p>
+      )}
       <input
         type="password"
         data-testid="password"
@@ -21,7 +26,14 @@ export const SignUpPage = () => {
           setPassword(event.target.value);
         }}
       />
-      <button type="submit" data-testid="submit-button" disabled={disabled}>
+      <button
+        type="submit"
+        data-testid="submit-button"
+        disabled={disabled}
+        onClick={() => {
+          validate({ email, password });
+        }}
+      >
         제출
       </button>
     </>

@@ -26,5 +26,20 @@ describe('이메일, 비밀번호를 입력하지 않으면 회원가입 할 수
 });
 
 describe('이메일은 이메일 형식이 아니면, 회원가입 할 수 없다.', () => {
-  it('형식에 맞지 않은 이메일을 입력하고 제출버튼을 누르면, "이메일 형식이 아닙니다." 문구가 노출된다.', () => {});
+  it('형식에 맞지 않은 이메일을 입력하고 제출버튼을 누르면, "이메일 형식이 아닙니다." 문구가 노출된다.', () => {
+    // Given
+    const invalidEmail = 'asdf';
+
+    // When
+    const { getByTestId } = render(<SignUpPage />);
+    const emailComponent = getByTestId('email');
+    fireEvent.change(emailComponent, { target: { value: invalidEmail } });
+
+    const buttonComponent = getByTestId('submit-button');
+    fireEvent.click(buttonComponent);
+
+    // Then
+    const helperComponent = getByTestId('helper-text');
+    expect(helperComponent).toHaveTextContent('이메일 형식이 아닙니다.');
+  });
 });
