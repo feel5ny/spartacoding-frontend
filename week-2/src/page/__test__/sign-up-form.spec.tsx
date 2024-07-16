@@ -1,5 +1,6 @@
-import { fireEvent, render } from '@testing-library/react';
+import { act, fireEvent, render } from '@testing-library/react';
 import { SignUpPage } from '../sign-up-page';
+import { ERROR_EMAIL_MSG } from '../../hooks/use-validate-credential';
 
 /**
  * !입력 테스트
@@ -35,11 +36,16 @@ describe('이메일은 이메일 형식이 아니면, 회원가입 할 수 없�
     const emailComponent = getByTestId('email');
     fireEvent.change(emailComponent, { target: { value: invalidEmail } });
 
-    const buttonComponent = getByTestId('submit-button');
-    fireEvent.click(buttonComponent);
+    const passwordComponent = getByTestId('password');
+    fireEvent.change(passwordComponent, { target: { value: 'asdf' } });
+
+    act(() => {
+      const buttonComponent = getByTestId('submit-button');
+      fireEvent.click(buttonComponent);
+    });
 
     // Then
     const helperComponent = getByTestId('helper-text');
-    expect(helperComponent).toHaveTextContent('이메일 형식이 아닙니다.');
+    expect(helperComponent).toHaveTextContent(ERROR_EMAIL_MSG);
   });
 });
