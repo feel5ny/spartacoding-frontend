@@ -80,7 +80,8 @@ export const SignUpPage = () => {
             data-testid="submit-button"
             disabled={disabled}
             onClick={() => {
-              validateCredential({ email, password });
+              const { isValid } = validateCredential({ email, password });
+              if (!isValid) return;
             }}
             variant="contained"
             fullWidth
