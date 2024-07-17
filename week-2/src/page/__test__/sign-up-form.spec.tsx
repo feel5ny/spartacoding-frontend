@@ -45,7 +45,7 @@ describe('이메일은 이메일 형식이 아니면, 회원가입 할 수 없�
     });
 
     // Then
-    const helperComponent = getByTestId('helper-text');
+    const helperComponent = getByTestId('email-helper-text');
     expect(helperComponent).toHaveTextContent(ERROR_EMAIL_MSG);
   });
 });
