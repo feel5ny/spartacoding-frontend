@@ -8,6 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { useSignUpApi } from '../hooks/use-sign-up-api';
 
 export const SignUpPage = () => {
   const [email, setEmail] = useState('');
@@ -20,6 +21,9 @@ export const SignUpPage = () => {
     validateCredential,
     initErrorMessage,
   } = useValidateCredential();
+
+  const { isPending, mutate } = useSignUpApi();
+  if (isPending) return <div data-testid="loader">로딩중..</div>;
 
   return (
     <main
@@ -82,6 +86,7 @@ export const SignUpPage = () => {
             onClick={() => {
               const { isValid } = validateCredential({ email, password });
               if (!isValid) return;
+              mutate({ email, password });
             }}
             variant="contained"
             fullWidth
