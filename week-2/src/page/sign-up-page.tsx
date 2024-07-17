@@ -14,7 +14,12 @@ export const SignUpPage = () => {
   const [password, setPassword] = useState('');
   const disabled = !email || !password;
 
-  const { emailErrorMessage, validateCredential } = useValidateCredential();
+  const {
+    emailErrorMessage,
+    passwordErrorMessage,
+    validateCredential,
+    initErrorMessage,
+  } = useValidateCredential();
 
   return (
     <main
@@ -37,6 +42,7 @@ export const SignUpPage = () => {
               'data-testid': 'email',
             }}
             onChange={(event) => {
+              if (emailErrorMessage) initErrorMessage('email');
               setEmail(event.target.value);
             }}
             FormHelperTextProps={
@@ -61,8 +67,11 @@ export const SignUpPage = () => {
               } as FormHelperTextProps
             }
             onChange={(event) => {
+              if (passwordErrorMessage) initErrorMessage('password');
               setPassword(event.target.value);
             }}
+            helperText={passwordErrorMessage}
+            error={Boolean(passwordErrorMessage)}
             fullWidth
             style={{ marginBottom: 8 }}
           />

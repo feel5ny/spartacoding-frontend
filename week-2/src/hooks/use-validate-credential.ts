@@ -10,7 +10,10 @@
  */
 
 import { useState } from 'react';
-import { validateEmailPattern, validatePasswordPattern } from '../utils/validate-format';
+import {
+  validateEmailPattern,
+  validatePasswordPattern,
+} from '../utils/validate-format';
 
 export const useValidateCredential = () => {
   const [emailErrorMessage, setEmailErrorMessage] = useState('');
@@ -31,10 +34,16 @@ export const useValidateCredential = () => {
     }
   };
 
+  const initErrorMessage = (type: 'email' | 'password') => {
+    if (type === 'email') setEmailErrorMessage('');
+    if (type === 'password') setPasswordErrorMessage('');
+  };
+
   return {
     emailErrorMessage,
     passwordErrorMessage,
     validateCredential,
+    initErrorMessage,
   };
 };
 
