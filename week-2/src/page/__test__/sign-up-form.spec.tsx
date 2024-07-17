@@ -1,6 +1,6 @@
-import { act, fireEvent, render } from '@testing-library/react';
-import { SignUpPage } from '../sign-up-page';
+import { act, fireEvent } from '@testing-library/react';
 import { ERROR_EMAIL_MSG } from '../../hooks/use-validate-credential';
+import { renderSignUp } from '../../utils/test-setup/wrapper';
 
 /**
  * !입력 테스트
@@ -14,7 +14,7 @@ describe('이메일, 비밀번호를 입력하지 않으면 회원가입 할 수
     const password = 'b';
 
     // When
-    const { getByTestId } = render(<SignUpPage />);
+    const { getByTestId } = renderSignUp();
     const emailComponent = getByTestId('email');
     const passwordComponent = getByTestId('password');
     fireEvent.change(emailComponent, { target: { value: email } });
@@ -32,7 +32,7 @@ describe('이메일은 이메일 형식이 아니면, 회원가입 할 수 없�
     const invalidEmail = 'asdf';
 
     // When
-    const { getByTestId } = render(<SignUpPage />);
+    const { getByTestId } = renderSignUp();
     const emailComponent = getByTestId('email');
     fireEvent.change(emailComponent, { target: { value: invalidEmail } });
 

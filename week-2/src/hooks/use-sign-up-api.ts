@@ -4,7 +4,7 @@ import supabase from '../server/supabase';
 type SignUpRequest = { email: string; password: string };
 
 export const useSignUpApi = (
-  options: UseMutationOptions<void, null, SignUpRequest>
+  options?: UseMutationOptions<void, null, SignUpRequest>
 ) => {
   return useMutation({
     mutationFn: async ({ email, password }: SignUpRequest) => {
