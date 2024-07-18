@@ -1,6 +1,10 @@
 import { MutableSnapshot, RecoilRoot } from 'recoil';
 import { MemoryRouter } from 'react-router-dom';
 import { PropsWithChildren } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { render } from '@testing-library/react';
+import App from '../../App';
+import { LocationDisplay } from './location-display';
 
 export const Wrapper = ({
   children,
@@ -10,7 +14,20 @@ export const Wrapper = ({
   initialEntry?: string;
   initializeState?: (mutableSnapshot: MutableSnapshot) => void;
 }>) => (
-  <RecoilRoot initializeState={initializeState}>
-    <MemoryRouter initialEntries={[initialEntry]}>{children}</MemoryRouter>
-  </RecoilRoot>
+  <QueryClientProvider client={new QueryClient()}>
+    <RecoilRoot initializeState={initializeState}>
+      <MemoryRouter initialEntries={[initialEntry]}>{children}</MemoryRouter>
+    </RecoilRoot>
+  </QueryClientProvider>
 );
+
+export const renderSignUp = () => {
+  return render(<App />, {
+    wrapper: ({ children }) => (
+      <Wrapper initialEntry="/sign-up">
+        {children}
+        <LocationDisplay />
+      </Wrapper>
+    ),
+  });
+};

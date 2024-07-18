@@ -8,10 +8,13 @@ import {
   Typography,
 } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { useSignUpApi } from '../hooks/use-sign-up-api';
+import { useNavigate } from 'react-router-dom';
 
 export const SignUpPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
   const disabled = !email || !password;
 
   const {
@@ -20,6 +23,16 @@ export const SignUpPage = () => {
     validateCredential,
     initErrorMessage,
   } = useValidateCredential();
+
+  const { isPending, mutate } = useSignUpApi({
+    onSuccess: () => {
+      navigate('/sign-up/success');
+    },
+    onError: () => {
+      navigate('/sign-up/fail');
+    },
+  });
+  if (isPending) return <div data-testid="loader">로딩중..</div>;
 
   return (
     <main
@@ -82,6 +95,7 @@ export const SignUpPage = () => {
             onClick={() => {
               const { isValid } = validateCredential({ email, password });
               if (!isValid) return;
+              mutate({ email, password });
             }}
             variant="contained"
             fullWidth
