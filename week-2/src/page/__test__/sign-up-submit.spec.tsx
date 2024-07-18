@@ -25,6 +25,7 @@ describe('입력한 이메일과 비밀번호를 제출을 하면 회원가입�
     fireEvent.change(passwordComponent, { target: { value: password } });
     fireEvent.click(buttonComponent);
   };
+
   it('회원가입 api가 요청되면, 로더가 노출된다.', async () => {
     beforeSubmit();
     // Then
@@ -50,5 +51,33 @@ describe('입력한 이메일과 비밀번호를 제출을 하면 회원가입�
       expect(screen.getByText('성공')).toBeInTheDocument();
     });
   });
-  it('회원가입 api의 status가 400이나 500이 내려오면, 실패페이지가 노출된다.', () => {});
+
+  it('회원가입 api의 status가 400이나 500이 내려오면, 실패페이지가 노출된다.', async () => {
+    beforeSubmit();
+    /**
+     * !순서를 고려해주세요.
+     * beforeSubmit 내부에서도 server.use를 통해 오버라이딩이 되고 있기 때문에,
+     * 추가적인 오버라이딩이 필요할 경우 beforeSubmit 다음 순서에 위치되어있어야합니다.
+     */
+    server.use(
+      http.post(SIGN_UP_URL, async () => {
+        await delay();
+        return HttpResponse.json({ key: 'test' }, { status: 400 });
+      })
+    );
+
+    const redirectPath = '/sign-up/fail';
+
+    // Then
+    await waitFor(() => {
+      /**
+       * 디버깅이 필요할 경우
+       * screen.debug();
+       */
+      expect(screen.getByTestId('location-display')).toHaveTextContent(
+        redirectPath
+      );
+      expect(screen.getByText('실패')).toBeInTheDocument();
+    });
+  });
 });

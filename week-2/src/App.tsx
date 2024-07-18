@@ -7,6 +7,7 @@ function App() {
       <Route path="/" element={<>메인</>} />
       <Route path="/sign-up" element={<SignUpPage />} />
       <Route path="/sign-up/success" element={<>성공</>} />
+      <Route path="/sign-up/fail" element={<>실패</>} />
     </Routes>
   );
 }

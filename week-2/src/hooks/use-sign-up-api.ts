@@ -16,7 +16,8 @@ export const useSignUpApi = (
             password,
           },
         ])
-        .select();
+        .select()
+        .throwOnError();
     },
     ...options,
   });

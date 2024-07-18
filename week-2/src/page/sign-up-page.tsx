@@ -28,6 +28,9 @@ export const SignUpPage = () => {
     onSuccess: () => {
       navigate('/sign-up/success');
     },
+    onError: () => {
+      navigate('/sign-up/fail');
+    },
   });
   if (isPending) return <div data-testid="loader">로딩중..</div>;
 
