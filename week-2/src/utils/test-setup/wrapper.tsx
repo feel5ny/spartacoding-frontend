@@ -4,6 +4,7 @@ import { PropsWithChildren } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { render } from '@testing-library/react';
 import App from '../../App';
+import { LocationDisplay } from './location-display';
 
 export const Wrapper = ({
   children,
@@ -23,7 +24,10 @@ export const Wrapper = ({
 export const renderSignUp = () => {
   return render(<App />, {
     wrapper: ({ children }) => (
-      <Wrapper initialEntry="/sign-up">{children}</Wrapper>
+      <Wrapper initialEntry="/sign-up">
+        {children}
+        <LocationDisplay />
+      </Wrapper>
     ),
   });
 };
