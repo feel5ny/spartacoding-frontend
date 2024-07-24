@@ -21,15 +21,15 @@ jobs:
         id: restore-node-modules
         uses: actions/cache@v3
         with:
-          path: week-3/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('week-3/package-lock.json') }}
+          path: week-5/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('week-5/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node
   
       - name: Install dependencies
         if: steps.restore-node-modules.outputs.cache-hit != 'true'
         run: npm install
-        working-directory: week-3
+        working-directory: week-5
 
   # lint 확인 및 수정
   lint:
@@ -48,19 +48,19 @@ jobs:
           id: restore-node-modules
           uses: actions/cache@v3
           with:
-            path: week-3/node_modules
-            key: ${{ runner.os }}-node-${{ hashFiles('week-3/package-lock.json') }}
+            path: week-5/node_modules
+            key: ${{ runner.os }}-node-${{ hashFiles('week-5/package-lock.json') }}
             restore-keys: |
               ${{ runner.os }}-node-
 
         - name: Install dependencies (if not cached)
           if: steps.restore-node-modules.outputs.cache-hit != 'true'
           run: npm install
-          working-directory: week-3
+          working-directory: week-5
 
         - name: Run lint
           run: npm run lint
-          working-directory: week-3
+          working-directory: week-5
 
   # 테스트 검증
   test:
@@ -79,19 +79,19 @@ jobs:
         id: restore-node-modules
         uses: actions/cache@v3
         with:
-          path: week-3/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('week-3/package-lock.json') }}
+          path: week-5/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('week-5/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
       - name: Install dependencies (if not cached)
         if: steps.restore-node-modules.outputs.cache-hit != 'true'
         run: npm install
-        working-directory: week-3
+        working-directory: week-5
 
       - name: Run tests
         run: npm run test
-        working-directory: week-3
+        working-directory: week-5
   
   # React Build
   build:
@@ -110,17 +110,22 @@ jobs:
         id: restore-node-modules
         uses: actions/cache@v3
         with:
-          path: week-3/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('week-3/package-lock.json') }}
+          path: week-5/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('week-5/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
 
       - name: Install dependencies (if not cached)
         if: steps.restore-node-modules.outputs.cache-hit != 'true'
         run: npm install
-        working-directory: week-3
+        working-directory: week-5
 
       - name: Run Build
         run: npm run build
-        working-directory: week-3
+        working-directory: week-5
       
+      - name: Run Lighthouse CI
+        run: |
+          npm install -g @lhci/cli@0.14.x
+          lhci autorun
+        working-directory: week-5
