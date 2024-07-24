@@ -163,7 +163,7 @@ jobs:
                 `| --- | --- |`,
                 `| ${score(summary.performance)} Performance | ${summary.performance} |`,
                 { ... }
-              ].join("\n");
+                ].join("\n");
 
               const detail = [
                 `| Category | Score |`,
@@ -174,9 +174,8 @@ jobs:
                   audits["first-contentful-paint"].displayValue
                 } |`,
                 { ... }
-              ].join("\n");
-              comments += comment + "\n" + detail + "\n";
-            });
+                ].join("\n");
+              comments += comment + "\n" + detail + "\n";});
             # comments 변수의 값을 다음 job으로 넘겨줍니다.
             core.setOutput('comments', comments)
 
