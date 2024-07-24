@@ -92,7 +92,7 @@ jobs:
       - name: Run Build
         run: npm run build
         working-directory: week-5
-  
+          
   # lighthouse
   lighthouse:
     runs-on: ubuntu-latest
@@ -119,6 +119,11 @@ jobs:
         if: steps.restore-node-modules.outputs.cache-hit != 'true'
         run: npm install
         working-directory: week-5   
+
+      - name: Run Build
+        run: npm run build
+        working-directory: week-5
+
       - name: Run Lighthouse CI
         run: |
           npm install -g @lhci/cli@0.14.x
