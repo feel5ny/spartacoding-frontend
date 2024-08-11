@@ -14,8 +14,11 @@ TDD와 CI/CD로 버그를 방지하고, 성능 최적화로 사용자 UX를 향�
 CI/CD의 개념과 기대 효과, 효과적인 적용 시점을 알게 되고, 무엇을 점검해야 할지에 대해 알게 됩니다.
 > [week3](./week-3/)
 
+<center><img src="https://static.spartacodingclub.kr/backoffice/master-template/kqy23lq4m1o_Frame%201000006416.png" width="500" /></center>
 
 
 ### 3️⃣ 서비스 이탈률 줄이기, 성능 최적화
 성능 최적화의 개념과 필요한 이유, 로드 시점의 단계들에서 여러가지 최적화 방법을 알아봅니다.
 > [week4](./week-4/), [week5](./week-5/)
+
+<center><img src="https://static.spartacodingclub.kr/backoffice/master-template/yhsafpzx13e_Frame%201000006415.png" width="500" /></center>
