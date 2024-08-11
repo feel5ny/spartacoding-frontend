@@ -7,7 +7,7 @@ TDD와 CI/CD로 버그를 방지하고, 성능 최적화로 사용자 UX를 향�
 테스트 코드가 왜 필요한지 알고, 프론트엔드 개발자가 알아야 할 테스트의 종류에 대해서 알아봅니다.
 > [week1](./week-1/), [week2](./week-2/)
 
-<img src="https://static.spartacodingclub.kr/backoffice/master-template/o39wbnvncbr_Frame%201000006414.png" width="650" />
+<center><img src="https://static.spartacodingclub.kr/backoffice/master-template/o39wbnvncbr_Frame%201000006414.png" width="500" /></center>
 
 
 ### 2️⃣ 협업시 발생가능한 버그율 줄이기, CI/CD
