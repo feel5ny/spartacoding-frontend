@@ -1,0 +1,25 @@
+.ImageBlurLoading {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .image-container {
+    position: relative;
+    width: 600px;
+    overflow: hidden;
+  }
+  
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    transition: filter 1s ease;
+    filter: blur(10px);
+  }
+  
+  .image-container.loaded img {
+    filter: blur(0px);
+  }
+  
