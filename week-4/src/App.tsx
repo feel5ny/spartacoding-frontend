@@ -21,6 +21,9 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
+        <br/>
+        <br/>
+        <button onClick={() => { throw new Error() }}>Break the world</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
