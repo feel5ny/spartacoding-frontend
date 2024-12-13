@@ -40,12 +40,12 @@ describe('TodoList 테스트', () => {
   test('할일을 입력할 때 데드라인 날짜가 오늘 날짜 미만이면 입력할 수 없다.', () => {
     // -------- Given --------
     // ! 테스트환경을 오늘날짜를 고정합니다.
-    const date = new Date(2024, 12, 1);
+    const date = new Date(2024, 11, 1);
 
     vi.useFakeTimers();
     vi.setSystemTime(date);
 
-    const mockDeadline = new Date(2024, 11, 1);
+    const mockDeadline = new Date(2024, 10, 1);
 
     // -------- When --------
     // 데드라인 날짜가 오늘 날짜 미만이면
