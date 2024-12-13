@@ -12,6 +12,7 @@ export const TodoForm = ({
 }) => {
   const { initForm, updateDeadline, updateTodo, todo, deadline } =
     useTodoForm();
+  const MAX_TODO_LENGTH = 100;
 
   const handleAddTodo = () => {
     if (!(todo.trim() && deadline)) return;
@@ -31,6 +32,9 @@ export const TodoForm = ({
   return (
     <>
       <TextField
+        inputProps={{
+          'data-testid': 'todo-form-text',
+        }}
         label="New Todo"
         variant="outlined"
         fullWidth
@@ -41,6 +45,9 @@ export const TodoForm = ({
       <TextField
         label="Deadline"
         type="date"
+        inputProps={{
+          'data-testid': 'todo-form-deadline',
+        }}
         InputLabelProps={{ shrink: true }}
         fullWidth
         value={deadline}
@@ -51,11 +58,12 @@ export const TodoForm = ({
         style={{ marginBottom: '1rem' }}
       />
       <Button
+        data-testid="todo-form-button"
         variant="contained"
         color="primary"
         onClick={handleAddTodo}
         fullWidth
-        disabled={!todo.trim() || !deadline}
+        disabled={!(todo.trim().length <= MAX_TODO_LENGTH) || !deadline}
       >
         Add Todo
       </Button>
