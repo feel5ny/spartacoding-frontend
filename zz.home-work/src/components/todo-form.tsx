@@ -2,6 +2,7 @@ import { TextField, Button } from '@mui/material';
 import { Dispatch } from 'react';
 import { Todo } from '../types/todo';
 import { useTodoForm } from '../hooks/use-todo-form';
+import { isAfter } from 'date-fns';
 
 export const TodoForm = ({
   todos,
@@ -63,7 +64,11 @@ export const TodoForm = ({
         color="primary"
         onClick={handleAddTodo}
         fullWidth
-        disabled={!(todo.trim().length <= MAX_TODO_LENGTH) || !deadline}
+        disabled={
+          !(todo.trim().length <= MAX_TODO_LENGTH) ||
+          !deadline ||
+          !isAfter(deadline, new Date())
+        }
       >
         Add Todo
       </Button>
