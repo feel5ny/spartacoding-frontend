@@ -51,7 +51,19 @@ describe('TodoList 테스트', () => {
     expect(todoItemCheckbox).toBeChecked();
   });
 
-  it('활성화된 체크박스를 클릭하면 텍스트 스타일이 취소선이 비활성화된다.', () => {});
+  it('활성화된 체크박스를 클릭하면 텍스트 스타일이 취소선이 비활성화된다.', () => {
+    // -------- Given --------
+    const { getByTestId } = 할일입력();
+    const todoItemCheckbox = getByTestId(/todo-item-checkbox/);
+    fireEvent.click(todoItemCheckbox);
+    const todoItemText = getByTestId(/todo-item-text/);
+
+    // -------- When --------
+    // 활성화된 체크박스를 클릭하면
+    fireEvent.click(todoItemCheckbox);
+    // 텍스트 스타일이 취소선이 비활성화된다.
+    expect(todoItemText.style.textDecoration).toBe('none');
+  });
 
   it('활성화된 체크박스를 클릭하면 체크박스가 비활성화된다.', () => {});
 });
