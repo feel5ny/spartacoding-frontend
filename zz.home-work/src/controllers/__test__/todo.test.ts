@@ -8,7 +8,7 @@
  * !4번,5번 반복
  */
 
-import { updateToggle, deleteTodo } from "../todo";
+import { updateTodoToggle, deleteTodo } from "../todo";
 import {Todo} from '../../types/todo'
 
 
@@ -32,7 +32,7 @@ describe('todo controller', () => {
     // 성공 case
     it('지정된 투두의 completed 속성이 반전된 배열을 반환', () => {
       // When
-      const updatedTodos = updateToggle(todos, 2);
+      const updatedTodos = updateTodoToggle(todos, 2);
       // Then
       expect(updatedTodos[1].completed).toEqual(!todos[1].completed)
       expect(updatedTodos[0]).toEqual(todos[0])
@@ -42,7 +42,7 @@ describe('todo controller', () => {
     // 실패 case
     it('id가 일치하지 않다면, 원래 todo를 반환', () => {
       // When
-      const updatedTodos = updateToggle(todos, 999);
+      const updatedTodos = updateTodoToggle(todos, 999);
       // Then
       expect(updatedTodos).toEqual(todos);
     });

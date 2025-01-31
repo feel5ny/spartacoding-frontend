@@ -8,7 +8,7 @@ import {
 import { parseISO, format } from 'date-fns';
 import { Todo } from '../types/todo';
 import { Dispatch } from 'react';
-import { deleteTodo, updateToggle } from '../controllers/todo';
+import { deleteTodo, updateTodoToggle } from '../controllers/todo';
 
 export const TodoList = ({
   todos,
@@ -18,7 +18,7 @@ export const TodoList = ({
   setTodos: Dispatch<React.SetStateAction<Todo[]>>;
 }) => {
   const handleToggleTodo = (id: number) => {
-    setTodos(updateToggle(todos, id));
+    setTodos(updateTodoToggle(todos, id));
   };
 
   const handleDeleteTodo = (id: number) => {
