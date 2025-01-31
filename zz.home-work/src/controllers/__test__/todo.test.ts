@@ -8,7 +8,7 @@
  * !4번,5번 반복
  */
 
-import { updateToggle } from "../todo";
+import { updateToggle, deleteTodo } from "../todo";
 import {Todo} from '../../types/todo'
 
 
@@ -24,10 +24,10 @@ describe('todo controller', () => {
       { id: 3, text: '공부하기', completed: true, deadline: '2025-01-23' },
     ];
   });
-/**
- * @userStory
- * * 유저가 토글 버튼을 누르면, 해당 투두에 underline 이 쳐진다.
- */
+  /**
+   * @userStory
+   * * 유저가 토글 버튼을 누르면, 해당 투두에 underline 이 쳐진다.
+   */
   describe('update toggle', () => {
     // 성공 case
     it('지정된 투두의 completed 속성이 반전된 배열을 반환', () => {
@@ -43,6 +43,37 @@ describe('todo controller', () => {
     it('id가 일치하지 않다면, 원래 todo를 반환', () => {
       // When
       const updatedTodos = updateToggle(todos, 999);
+      // Then
+      expect(updatedTodos).toEqual(todos);
+    });
+  });
+
+  /**
+   * @userStory
+   * * 투두 삭제 버튼을 누르면, 해당 투두는 리스트에서 제외된다.
+   */
+  describe('delete toggle', () => {
+    // 성공 case
+    it('지정된 투두가 제외된 배열을 반환', () => {
+      // When
+      const updatedTodos = deleteTodo(todos, 2);
+      // Then
+      expect(updatedTodos).toHaveLength(todos.length - 1)
+      expect(updatedTodos.find(item => item.id === 2)).toBeUndefined()
+    });
+
+    it('기존의 배열을 변경해선 안됨', () => {
+      // When
+      const originalTodos = [...todos];
+      deleteTodo(todos, 2);
+      // Then
+      expect(todos).toEqual(originalTodos);
+    });
+
+    // 실패 case
+    it('id가 일치하지 않다면, 원래 todo를 반환', () => {
+      // When
+      const updatedTodos = deleteTodo(todos, 999);
       // Then
       expect(updatedTodos).toEqual(todos);
     });
