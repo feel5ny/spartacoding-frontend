@@ -31,6 +31,7 @@ export const TodoForm = ({
   return (
     <>
       <TextField
+        inputProps={{ "data-testid": "todo" }}
         label="New Todo"
         variant="outlined"
         fullWidth
@@ -39,9 +40,9 @@ export const TodoForm = ({
         style={{ marginBottom: '1rem' }}
       />
       <TextField
+        inputProps={{  "data-testid": "date" }}
         label="Deadline"
         type="date"
-        InputLabelProps={{ shrink: true }}
         fullWidth
         value={deadline}
         onChange={(e) => {
@@ -51,6 +52,7 @@ export const TodoForm = ({
         style={{ marginBottom: '1rem' }}
       />
       <Button
+        data-testid="addBtn"
         variant="contained"
         color="primary"
         onClick={handleAddTodo}
