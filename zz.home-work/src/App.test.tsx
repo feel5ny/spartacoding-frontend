@@ -1,7 +1,6 @@
-describe('Todo List', () => {
-  test('-', () => {});
-
 /* 테스트 코드 */
+import { cleanup } from '@testing-library/react';
+
 describe('useTodoForm 테스트', () => {
     afterEach(() => {
         cleanup();
