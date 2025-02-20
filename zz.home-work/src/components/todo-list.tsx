@@ -45,7 +45,8 @@ export const TodoList = ({
           />
           <IconButton
             edge="end"
-            aria-label="delete"
+            aria-label="delete" // ✅ 접근성 추가
+            data-testid="delete-button" // ✅ 테스트 ID 추가
             onClick={() => handleDeleteTodo(todo.id)}
           >
             🗑️
