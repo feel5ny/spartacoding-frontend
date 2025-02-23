@@ -28,13 +28,15 @@ export const TodoList = ({
   return (
     <List style={{ marginTop: '2rem' }}>
       {todos.map((todo) => (
-        <ListItem key={todo.id}>
+        <ListItem key={todo.id} data-testid="todo-item">
           <Checkbox
             checked={todo.completed}
+            data-testid="complete-button"
             onChange={() => handleToggleTodo(todo.id)}
           />
           <ListItemText
             primary={todo.text}
+            data-testid="todo-text"
             secondary={`Deadline: ${format(
               parseISO(todo.deadline),
               'yyyy-MM-dd'
@@ -46,6 +48,7 @@ export const TodoList = ({
           <IconButton
             edge="end"
             aria-label="delete"
+            data-testid="delete-btn"
             onClick={() => handleDeleteTodo(todo.id)}
           >
             🗑️
