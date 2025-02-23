@@ -3,6 +3,13 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { TodoList } from '../todo-list';
 import { vi } from 'vitest';
 
+// 순서
+// 1. 유저스토리 작성
+// 1. 테스트케이스 작성 (성공, 실패)
+// 2. 실제 컴포넌트 구현
+// 3. 리팩토링 -> 테스트 실패
+// 4. 테스트케이스 수정 -> 테스트 성공
+
 describe('TodoList 테스트', () => {
     afterEach(() => {
         cleanup();
