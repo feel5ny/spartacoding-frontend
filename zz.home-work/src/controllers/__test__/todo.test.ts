@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { deleteTodo } from '../todo';
+import { deleteTodo, updateToggle } from '../todo';
 import { Todo } from '../../types/todo';
 /**
  * @userStory
@@ -9,14 +9,62 @@ import { Todo } from '../../types/todo';
  * 데드라인 날짜를 입력받을 때, 오늘 날짜 이후로만 입력받을 수 있다.
  */
 
-describe('Todo 추가 기능', () => {
-  it('할 일과 날짜가 입력되면, 새로운 할 일을 추가한다.', () => {});
-  it('할 일 또는 날짜가 비어 있으면, false를 반환시켜 등록을 막는다.', () => {});
-});
-
 describe('Todo 체크 기능', () => {
-  it('등록된 할 일을 클릭하면 checked 표시가 활성화된다.', () => {});
-  it('checked 된 할 일을 다시 클릭하면 checked가 해제된다.', () => {});
+  let todoList: Todo[];
+
+  beforeEach(() => {
+    todoList = [
+      {
+        id: 1,
+        text: '프로그래밍 공부하기',
+        completed: false,
+        deadline: '2025-02-26',
+      },
+      { id: 2, text: 'TDD 강의 듣기', completed: true, deadline: '2025-02-26' },
+    ];
+  });
+
+  it('존재하지 않는 ID를 전달하면 리스트가 변경되지 않는다.', () => {
+    const updatedList = updateToggle(todoList, 999);
+    expect(updatedList).toStrictEqual(todoList);
+  });
+
+  it('할 일을 클릭하면 completed 값이 true로 변경된다.', () => {
+    const updatedList = updateToggle(todoList, 1);
+    expect(updatedList).toStrictEqual([
+      {
+        id: 1,
+        text: '프로그래밍 공부하기',
+        completed: true,
+        deadline: '2025-02-26',
+      },
+      { id: 2, text: 'TDD 강의 듣기', completed: true, deadline: '2025-02-26' },
+    ]);
+  });
+
+  it('이미 체크된 할 일을 클릭하면 다시 false로 변경된다.', () => {
+    const updatedList = updateToggle(todoList, 2);
+    expect(updatedList).toStrictEqual([
+      {
+        id: 1,
+        text: '프로그래밍 공부하기',
+        completed: false,
+        deadline: '2025-02-26',
+      },
+      {
+        id: 2,
+        text: 'TDD 강의 듣기',
+        completed: false,
+        deadline: '2025-02-26',
+      },
+    ]);
+  });
+
+  it('할 일을 두 번 클릭하면 원래 상태로 돌아간다.', () => {
+    let updatedList = updateToggle(todoList, 1);
+    updatedList = updateToggle(updatedList, 1);
+    expect(updatedList).toStrictEqual(todoList);
+  });
 });
 
 describe('Todo 삭제 기능', () => {
