@@ -10,7 +10,7 @@ export const TodoForm = ({
   todos: Todo[];
   setTodos: Dispatch<React.SetStateAction<Todo[]>>;
 }) => {
-  const { initForm, updateDeadline, updateTodo, todo, deadline } =
+  const { initForm, updateDeadline, updateTodo, todo, deadline, isTodoTooLong,isPast} =
     useTodoForm();
 
   const handleAddTodo = () => {
@@ -37,6 +37,7 @@ export const TodoForm = ({
         value={todo}
         onChange={(e) => updateTodo(e.target.value)}
         style={{ marginBottom: '1rem' }}
+        data-testid='Txt_Todo'
       />
       <TextField
         label="Deadline"
@@ -49,13 +50,15 @@ export const TodoForm = ({
           updateDeadline(selectedDate);
         }}
         style={{ marginBottom: '1rem' }}
+        data-testid='DeadLine_Todo'
       />
       <Button
         variant="contained"
         color="primary"
         onClick={handleAddTodo}
         fullWidth
-        disabled={!todo.trim() || !deadline}
+        disabled={!todo.trim() || !deadline || isTodoTooLong() || isPast()}
+        data-testid='Btn_AddTodo'
       >
         Add Todo
       </Button>
