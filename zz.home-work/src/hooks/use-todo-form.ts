@@ -10,18 +10,22 @@ export const useTodoForm = () => {
   };
 
   const updateTodo = (newTodo: string) => {
-    setTodo(newTodo);
+      setTodo(newTodo);
   };
 
   const updateDeadline = (date: string) => {
     setDeadline(date);
   };
 
+  const isTodoTooLong = () => {
+    return todo.length > 100;
+  };
+
   return {
     initForm,
     updateTodo,
     updateDeadline,
-    //
+    isTodoTooLong,
     todo,
     deadline,
   };

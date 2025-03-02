@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { TodoList } from './components/todo-list';
+import { TodoForm } from './components/todo-form';
 import { Todo } from './types/todo';
 import { useState } from 'react';
 
@@ -8,6 +9,11 @@ import { useState } from 'react';
 const TodoListWrapper = ({ initialTodos }: { initialTodos: Todo[] }) => {
   const [todos, setTodos] = useState(initialTodos);
   return <TodoList todos={todos} setTodos={setTodos} />;
+};
+
+const TodoFormWrapper = ({ initialTodos }: { initialTodos: Todo[] }) => {
+  const [todos, setTodos] = useState(initialTodos);
+  return <TodoForm todos={todos} setTodos={setTodos} />;
 };
 
 describe('TodoList 테스트', () => {
@@ -107,13 +113,24 @@ describe('TodoList 테스트', () => {
     // Given 
     //할일 폼 선택, mock데이터 셋팅
     
-    
+    const initialTodo: Todo[] = [
+      {
+        id: 1,
+        text: 'aaaaaaaaaabbbbbbbbbbccccccccccddddddddddeeeeeeeeeeffffffffffgggggggggghhhhhhhhhhjjjjjjjjjjkkkkkkkkkk1234234123',
+        completed: false,
+        deadline: '2025-01-01'
+      }
+    ];
 
     // When
     //mock데이터 입력, 버튼 클릭
-    
+    render(<TodoFormWrapper initialTodos={initialTodo} />);
+    const AddBtn = screen.getByTestId('Btn_AddTodo');
+
+    fireEvent.click(AddBtn);
     // Then
     //버튼 클릭여부 확인
+    expect(AddBtn).toBeDisabled();
     
      })
   
