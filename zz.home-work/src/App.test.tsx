@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect,vi } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { TodoList } from './components/todo-list';
 import { TodoForm } from './components/todo-form';
@@ -132,6 +132,36 @@ describe('TodoList 테스트', () => {
     //버튼 클릭여부 확인
     expect(AddBtn).toBeDisabled();
     
-     })
+     });
+    it('할일을 입력할 때 데드라인 날짜가 오늘 날짜 미만이면 입력할 수 없다.',()=>{
+      // Given
+
+        const date = new Date(2024, 11, 1)// 오늘 날짜 임의 값
+        const initialTodo: Todo[]= [];
+        vi.useFakeTimers()
+        vi.setSystemTime(date)
+
+        //When
+        render(<TodoFormWrapper initialTodos={initialTodo} />);
+
+        const todoInputContainer = screen.getByTestId('Txt_Todo');
+        const todoInput = todoInputContainer.querySelector('input');
+        
+        const deadlineInputContainer = screen.getByTestId('DeadLine_Todo');
+        const deadlineInput = deadlineInputContainer.querySelector('input');
+        
+        const addButton = screen.getByTestId('Btn_AddTodo');
+  
+        // 입력 필드가 존재하는지 확인
+        expect(todoInput).not.toBeNull();
+        expect(deadlineInput).not.toBeNull();
+
+        // 과거 날짜 입력
+        fireEvent.change(todoInput!, {target: {value: '테스트 할일'}});
+        fireEvent.change(deadlineInput!, {target: {value: '2024-10-01'}});
+
+        // Then
+        expect(addButton).toBeDisabled();
+    })
   
 });

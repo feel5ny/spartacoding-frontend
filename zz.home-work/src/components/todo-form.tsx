@@ -10,7 +10,7 @@ export const TodoForm = ({
   todos: Todo[];
   setTodos: Dispatch<React.SetStateAction<Todo[]>>;
 }) => {
-  const { initForm, updateDeadline, updateTodo, todo, deadline, isTodoTooLong } =
+  const { initForm, updateDeadline, updateTodo, todo, deadline, isTodoTooLong,isPast} =
     useTodoForm();
 
   const handleAddTodo = () => {
@@ -50,13 +50,14 @@ export const TodoForm = ({
           updateDeadline(selectedDate);
         }}
         style={{ marginBottom: '1rem' }}
+        data-testid='DeadLine_Todo'
       />
       <Button
         variant="contained"
         color="primary"
         onClick={handleAddTodo}
         fullWidth
-        disabled={!todo.trim() || !deadline || isTodoTooLong()}
+        disabled={!todo.trim() || !deadline || isTodoTooLong() || isPast()}
         data-testid='Btn_AddTodo'
       >
         Add Todo
