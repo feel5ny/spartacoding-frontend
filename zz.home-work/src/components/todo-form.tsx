@@ -2,7 +2,7 @@ import { TextField, Button } from '@mui/material';
 import { Dispatch } from 'react';
 import { Todo } from '../types/todo';
 import { useTodoForm } from '../hooks/use-todo-form';
-import { isAfter } from 'date-fns';
+import { isAfter, parseISO } from 'date-fns';
 
 export const TodoForm = ({
   todos,
@@ -29,6 +29,8 @@ export const TodoForm = ({
     ]);
     initForm();
   };
+
+  const isDeadlineValid = deadline && isAfter(parseISO(deadline), new Date());
 
   return (
     <>
