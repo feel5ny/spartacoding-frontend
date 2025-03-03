@@ -42,6 +42,8 @@ export const TodoForm = ({
         value={todo}
         onChange={(e) => updateTodo(e.target.value)}
         style={{ marginBottom: '1rem' }}
+        error={todo.length > MAX_TODO_LENGTH}
+        helperText={todo.length > MAX_TODO_LENGTH ? '할 일은 100자 이하로 입력해주세요.' : ''}
       />
       <TextField
         label="Deadline"
@@ -52,11 +54,10 @@ export const TodoForm = ({
         InputLabelProps={{ shrink: true }}
         fullWidth
         value={deadline}
-        onChange={(e) => {
-          const selectedDate = e.target.value;
-          updateDeadline(selectedDate);
-        }}
+        onChange={(e) => updateDeadline(e.target.value)}
         style={{ marginBottom: '1rem' }}
+        error={!isDeadlineValid}
+        helperText={!isDeadlineValid ? '데드라인은 오늘 이후 날짜로 설정해주세요.' : ''}
       />
       <Button
         data-testid="todo-form-button"
@@ -65,9 +66,7 @@ export const TodoForm = ({
         onClick={handleAddTodo}
         fullWidth
         disabled={
-          !(todo.trim().length <= MAX_TODO_LENGTH) ||
-          !deadline ||
-          !isAfter(deadline, new Date())
+          todo.trim().length > MAX_TODO_LENGTH || !deadline || !isDeadlineValid
         }
       >
         Add Todo
