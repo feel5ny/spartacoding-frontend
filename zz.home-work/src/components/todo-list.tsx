@@ -27,13 +27,14 @@ export const TodoList = ({
 
   return (
     <List style={{ marginTop: '2rem' }}>
-      {todos.map((todo) => (
+      {todos.map((todo, index) => (
         <ListItem key={todo.id}>
           <Checkbox
             checked={todo.completed}
             onChange={() => handleToggleTodo(todo.id)}
           />
           <ListItemText
+            data-testid={`todo-id-${index}`}
             primary={todo.text}
             secondary={`Deadline: ${format(
               parseISO(todo.deadline),
