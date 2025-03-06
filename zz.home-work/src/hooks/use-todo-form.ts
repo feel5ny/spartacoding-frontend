@@ -18,6 +18,12 @@ export const useTodoForm = () => {
   };
 
   const updateDeadline = (date: string) => {
+    const today = new Date().toISOString().split('T')[0];
+    if (date < today) {
+      setDeadline('');
+      return;
+    }
+
     setDeadline(date);
   };
 
