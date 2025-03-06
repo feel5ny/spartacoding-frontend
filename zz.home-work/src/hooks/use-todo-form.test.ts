@@ -24,6 +24,28 @@ describe('useTodoForm', () => {
     expect(result.current.todo).toBe(newTodo);
   });
 
+  it('updateTodo를 호출할 때 입력값이 100자 이상 작성되면 입력할 수 없다.', () => {
+    // Given
+    const { result } = renderHook(() => useTodoForm());
+    const newTodo = 'a'.repeat(101);
+
+    // When
+    act(() => {
+      result.current.updateTodo(newTodo);
+    });
+
+    // Then
+    expect(result.current.todo).toBe('');
+
+    // When
+    act(() => {
+      result.current.updateTodo('a'.repeat(100));
+    });
+
+    // Then
+    expect(result.current.todo).toBe('a'.repeat(100));
+  });
+
   it('updateDeadline을 호출하면 deadline 값이 변경되어야 한다', () => {
     // Given
     const { result } = renderHook(() => useTodoForm());
