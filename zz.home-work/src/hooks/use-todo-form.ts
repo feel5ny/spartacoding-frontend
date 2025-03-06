@@ -10,6 +10,10 @@ export const useTodoForm = () => {
   };
 
   const updateTodo = (newTodo: string) => {
+    if (newTodo.length > 100) {
+      return;
+    }
+
     setTodo(newTodo);
   };
 
