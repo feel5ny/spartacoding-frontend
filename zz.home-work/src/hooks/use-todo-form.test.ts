@@ -60,6 +60,30 @@ describe('useTodoForm', () => {
     expect(result.current.deadline).toBe(newDeadline);
   });
 
+  it('updateDeadline이 오늘 날짜 미만이면 입력할 수 없다', () => {
+    // Given
+    const { result } = renderHook(() => useTodoForm());
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+
+    // When
+    act(() => {
+      result.current.updateDeadline(yesterday.toISOString().split('T')[0]);
+    });
+
+    // Then
+    expect(result.current.deadline).toBe('');
+
+    // When
+    act(() => {
+      result.current.updateDeadline(today.toISOString().split('T')[0]);
+    });
+
+    // Then
+    expect(result.current.deadline).toBe(today.toISOString().split('T')[0]);
+  });
+
   it('initForm을 호출하면 todo와 deadline이 초기화되어야 한다', () => {
     // Given
     const { result } = renderHook(() => useTodoForm());
