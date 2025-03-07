@@ -1,14 +1,13 @@
 name: joooo24-ci
 
 on:
-  pull_request:
-    branches:
-      - main
-    types: [opened, synchronize]
+    pull_request:
+      # 트리거
+      types: [opened, synchronize]
 
 jobs:
-  ci:
-    name: Run Tests
+  # 의존성 설치
+  install-dependencies:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,11 +22,9 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Run Lint
-        run: npm run lint
 
-      - name: Run Tests
-        run: npm test
 
-      - name: Build Project
-        run: npm run build
+      # 테스트 실행
+      - name: Run tests
+        run: npm run test
+        working-directory: zz.home-work
