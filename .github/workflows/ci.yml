@@ -1,0 +1,63 @@
+name: feel5ny-ci
+
+on:
+    pull_request:
+      types: [opened, synchronize]
+
+jobs:
+  # 의존성 설치
+  install-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Restore node modules from cache
+        id: restore-node-modules
+        uses: actions/cache@v3
+        with:
+          path: zz.home-work/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('zz.home-work/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node
+  
+      - name: Install dependencies
+        if: steps.restore-node-modules.outputs.cache-hit != 'true'
+        run: npm install
+        working-directory: zz.home-work
+
+  # 테스트 검증
+  test:
+    runs-on: ubuntu-latest
+    needs: install-dependencies
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+
+      - name: Restore node modules from cache
+        id: restore-node-modules
+        uses: actions/cache@v3
+        with:
+          path: zz.home-work/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('zz.home-work/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies (if not cached)
+        if: steps.restore-node-modules.outputs.cache-hit != 'true'
+        run: npm install
+        working-directory: zz.home-work
+
+      - name: Run tests
+        run: npm run test
+        working-directory: zz.home-work
