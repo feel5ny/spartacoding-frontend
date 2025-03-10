@@ -2,6 +2,7 @@ import { TextField, Button } from '@mui/material';
 import { Dispatch } from 'react';
 import { Todo } from '../types/todo';
 import { useTodoForm } from '../hooks/use-todo-form';
+// import { data-testid } from "@testing-library/react"
 
 export const TodoForm = ({
   todos,
@@ -34,6 +35,9 @@ export const TodoForm = ({
         label="New Todo"
         variant="outlined"
         fullWidth
+        inputProps={{
+            "data-testid": "todo"
+        }}
         value={todo}
         onChange={(e) => updateTodo(e.target.value)}
         style={{ marginBottom: '1rem' }}
@@ -43,6 +47,9 @@ export const TodoForm = ({
         type="date"
         InputLabelProps={{ shrink: true }}
         fullWidth
+        inputProps={{
+            "data-testid": "date"
+        }}
         value={deadline}
         onChange={(e) => {
           const selectedDate = e.target.value;
@@ -54,6 +61,7 @@ export const TodoForm = ({
         variant="contained"
         color="primary"
         onClick={handleAddTodo}
+        data-testid="button"
         fullWidth
         disabled={!todo.trim() || !deadline}
       >
