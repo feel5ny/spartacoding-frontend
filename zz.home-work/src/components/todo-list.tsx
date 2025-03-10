@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { parseISO, format } from 'date-fns';
 import { Todo } from '../types/todo';
-import { Dispatch } from 'react';
+import { Dispatch, InputHTMLAttributes } from 'react';
 import { deleteTodo, updateToggle } from '../controllers/todo';
 
 export const TodoList = ({
@@ -30,10 +30,18 @@ export const TodoList = ({
       {todos.map((todo) => (
         <ListItem key={todo.id}>
           <Checkbox
+            inputProps={
+              {
+                'data-testid': `todo-item-checkbox-${todo.id}`,
+              } as InputHTMLAttributes<HTMLInputElement> & {
+                'data-testid': string;
+              }
+            }
             checked={todo.completed}
             onChange={() => handleToggleTodo(todo.id)}
           />
           <ListItemText
+            data-testid={`todo-item-text-${todo.id}`}
             primary={todo.text}
             secondary={`Deadline: ${format(
               parseISO(todo.deadline),

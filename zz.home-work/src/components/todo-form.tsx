@@ -31,6 +31,9 @@ export const TodoForm = ({
   return (
     <>
       <TextField
+        inputProps={{
+          'data-testid': 'todo-form-text',
+        }}
         label="New Todo"
         variant="outlined"
         fullWidth
@@ -41,6 +44,9 @@ export const TodoForm = ({
       <TextField
         label="Deadline"
         type="date"
+        inputProps={{
+          'data-testid': 'todo-form-deadline',
+        }}
         InputLabelProps={{ shrink: true }}
         fullWidth
         value={deadline}
@@ -51,6 +57,7 @@ export const TodoForm = ({
         style={{ marginBottom: '1rem' }}
       />
       <Button
+        data-testid="todo-form-button"
         variant="contained"
         color="primary"
         onClick={handleAddTodo}
