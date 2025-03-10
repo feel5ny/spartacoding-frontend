@@ -1,5 +1,5 @@
 import { TextField, Button } from '@mui/material';
-import { Dispatch } from 'react';
+import { Dispatch, useState } from 'react';
 import { Todo } from '../types/todo';
 import { useTodoForm } from '../hooks/use-todo-form';
 
@@ -28,6 +28,8 @@ export const TodoForm = ({
     initForm();
   };
 
+  const [disabled, setDisabled] = useState<boolean>(true);
+
   return (
     <>
       <TextField
@@ -35,7 +37,12 @@ export const TodoForm = ({
         variant="outlined"
         fullWidth
         value={todo}
-        onChange={(e) => updateTodo(e.target.value)}
+        inputProps={{ "data-testid": "todo-form-text" }}
+        onChange={(e) => {
+          updateTodo(e.target.value)
+          if (e.target.value.length >= 100) setDisabled(false);
+          else setDisabled(true);
+        }}
         style={{ marginBottom: '1rem' }}
       />
       <TextField
@@ -54,8 +61,9 @@ export const TodoForm = ({
         variant="contained"
         color="primary"
         onClick={handleAddTodo}
+        data-testid="todo-submit-btn"
         fullWidth
-        disabled={!todo.trim() || !deadline}
+        disabled={disabled && (!todo.trim() || !deadline)}
       >
         Add Todo
       </Button>
