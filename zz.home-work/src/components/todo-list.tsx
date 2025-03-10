@@ -1,14 +1,6 @@
-import {
-  List,
-  ListItem,
-  Checkbox,
-  ListItemText,
-  IconButton,
-} from '@mui/material';
-import { parseISO, format } from 'date-fns';
-import { Todo } from '../types/todo';
+import { List, ListItem, Checkbox, ListItemText, IconButton } from '@mui/material';
 import { Dispatch } from 'react';
-import { deleteTodo, updateToggle } from '../controllers/todo';
+import { Todo } from '../types/todo';
 
 export const TodoList = ({
   todos,
@@ -18,34 +10,39 @@ export const TodoList = ({
   setTodos: Dispatch<React.SetStateAction<Todo[]>>;
 }) => {
   const handleToggleTodo = (id: number) => {
-    setTodos(updateToggle(todos, id));
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
   };
 
   const handleDeleteTodo = (id: number) => {
-    setTodos(deleteTodo(todos, id));
+    setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   return (
     <List style={{ marginTop: '2rem' }}>
       {todos.map((todo) => (
-        <ListItem key={todo.id}>
+        <ListItem key={todo.id} data-testid={`todo-item-${todo.id}`}>
+          {/* 체크박스 */}
           <Checkbox
             checked={todo.completed}
             onChange={() => handleToggleTodo(todo.id)}
+            data-testid={`todo-checkbox-${todo.id}`}
           />
+          {/* 할 일 텍스트 */}
           <ListItemText
             primary={todo.text}
-            secondary={`Deadline: ${format(
-              parseISO(todo.deadline),
-              'yyyy-MM-dd'
-            )}`}
-            style={{
-              textDecoration: todo.completed ? 'line-through' : 'none',
-            }}
+            secondary={`Deadline: ${todo.deadline}`}
+            style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
+            data-testid={`todo-text-${todo.id}`}
           />
+          {/* 삭제 버튼 */}
           <IconButton
             edge="end"
-            aria-label="delete"
+            aria-label={`delete-todo-${todo.id}`}
+            data-testid={`delete-button-${todo.id}`}
             onClick={() => handleDeleteTodo(todo.id)}
           >
             🗑️
