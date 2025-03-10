@@ -1,0 +1,35 @@
+name: Add Labels to PR
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+      - synchronize
+
+jobs:
+  add-labels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract labels from PR title
+        id: extract-labels
+        run: |
+          PR_TITLE="${{ github.event.pull_request.title }}"
+          echo "PR Title: $PR_TITLE"
+
+          # 정규식으로 week와 home-work 추출
+          if [[ "$PR_TITLE" =~ \[week-([1-5])/([^]]+)\] ]]; then
+            WEEK_LABEL="week${BASH_REMATCH[1]}"
+            TASK_LABEL="${BASH_REMATCH[2]}"
+            echo "week_label=$WEEK_LABEL" >> $GITHUB_ENV
+            echo "task_label=$TASK_LABEL" >> $GITHUB_ENV
+          else
+            echo "No matching labels found"
+          fi
+
+      - name: Add labels to PR
+        if: env.week_label != '' && env.task_label != ''
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: "${{ env.week_label }}, ${{ env.task_label }}"
