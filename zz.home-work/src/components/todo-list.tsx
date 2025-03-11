@@ -1,14 +1,14 @@
 import {
+  Checkbox,
+  IconButton,
   List,
   ListItem,
-  Checkbox,
   ListItemText,
-  IconButton,
 } from '@mui/material';
-import { parseISO, format } from 'date-fns';
-import { Todo } from '../types/todo';
+import { format, parseISO } from 'date-fns';
 import { Dispatch } from 'react';
 import { deleteTodo, updateToggle } from '../controllers/todo';
+import { Todo } from '../types/todo';
 
 export const TodoList = ({
   todos,
@@ -26,14 +26,20 @@ export const TodoList = ({
   };
 
   return (
-    <List style={{ marginTop: '2rem' }}>
+    <List style={{ marginTop: '2rem' }} data-testid="todo-list">
       {todos.map((todo) => (
-        <ListItem key={todo.id}>
+        <ListItem key={todo.id} data-testid="todo-item">
           <Checkbox
+            slotProps={{
+              input: {
+                'data-testid': `todo-item-checkbox-${todo.id}`,
+              },
+            }}
             checked={todo.completed}
             onChange={() => handleToggleTodo(todo.id)}
           />
           <ListItemText
+            data-testid={`todo-item-text-${todo.id}`}
             primary={todo.text}
             secondary={`Deadline: ${format(
               parseISO(todo.deadline),

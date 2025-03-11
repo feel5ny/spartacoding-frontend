@@ -33,6 +33,9 @@ export const TodoForm = ({
       <TextField
         label="New Todo"
         variant="outlined"
+        inputProps={{
+          'data-testid': 'todo-input',
+        }}
         fullWidth
         value={todo}
         onChange={(e) => updateTodo(e.target.value)}
@@ -41,6 +44,9 @@ export const TodoForm = ({
       <TextField
         label="Deadline"
         type="date"
+        inputProps={{
+          'data-testid': 'deadline-input',
+        }}
         InputLabelProps={{ shrink: true }}
         fullWidth
         value={deadline}
@@ -53,6 +59,7 @@ export const TodoForm = ({
       <Button
         variant="contained"
         color="primary"
+        data-testid="add-todo-button"
         onClick={handleAddTodo}
         fullWidth
         disabled={!todo.trim() || !deadline}
