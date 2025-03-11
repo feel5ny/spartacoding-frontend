@@ -10,10 +10,20 @@ export const useTodoForm = () => {
   };
 
   const updateTodo = (newTodo: string) => {
+    if (newTodo.length > 100) {
+      return;
+    }
+
     setTodo(newTodo);
   };
 
   const updateDeadline = (date: string) => {
+    const today = new Date().toISOString().split('T')[0];
+    if (date < today) {
+      setDeadline('');
+      return;
+    }
+
     setDeadline(date);
   };
 
