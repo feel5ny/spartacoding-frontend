@@ -1,7 +1,7 @@
 import { fireEvent, render } from "@testing-library/react";
 import App from "./App.tsx";
 
-describe('할일을 입력할 때 100자 이상 작성하면 입력할 수 없다.', () => {
+describe('할일을 입력할 때 100자 이상 작성하면 입력할 수 없다. / 입력된 날짜가 이전 날짜일 때 입력할 수 없다', () => {
   test('99자 일 때 버튼은 활성화된다.', () => {
     const { getByTestId } = render(<App />);
     const todoInputText = getByTestId("todo");
