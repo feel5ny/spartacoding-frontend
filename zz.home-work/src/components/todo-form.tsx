@@ -13,6 +13,13 @@ export const TodoForm = ({
   const { initForm, updateDeadline, updateTodo, todo, deadline } =
     useTodoForm();
 
+  const compareWithToday = (date: string) => {
+      const today = new Date();
+      const inputDate = new Date(date);
+
+      return today < inputDate;
+  };
+
   const handleAddTodo = () => {
     if (!(todo.trim() && deadline)) return;
 
@@ -32,6 +39,9 @@ export const TodoForm = ({
     <>
       <TextField
         label="New Todo"
+        inputProps={{
+            "data-testid": "todo",
+        }}
         variant="outlined"
         fullWidth
         value={todo}
@@ -40,6 +50,9 @@ export const TodoForm = ({
       />
       <TextField
         label="Deadline"
+        inputProps={{
+            "data-testid": "date",
+        }}
         type="date"
         InputLabelProps={{ shrink: true }}
         fullWidth
@@ -53,9 +66,10 @@ export const TodoForm = ({
       <Button
         variant="contained"
         color="primary"
+        data-testid="button"
         onClick={handleAddTodo}
         fullWidth
-        disabled={!todo.trim() || !deadline}
+        disabled={!todo.trim() || !deadline || todo.length > 100 || !compareWithToday(deadline)}
       >
         Add Todo
       </Button>
