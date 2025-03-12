@@ -16,7 +16,7 @@ describe('Todo List Integration Test', () => {
   // 성공 케이스
   it('문제가 없다면 할 일 목록에 등록된다.', () => {
     // Given
-    let sampleTodos: {
+    const sampleTodos: {
       id: number;
       text: string;
       deadline: string;
