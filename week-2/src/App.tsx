@@ -10,7 +10,6 @@
  * 2. 실제 구현
  * 3. 1,2번 사이클 반복
  *
- * @pullReqeustTest
  */
 
 import { useEffect, useState } from 'react';
