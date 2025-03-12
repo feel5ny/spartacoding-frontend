@@ -30,10 +30,12 @@ export const TodoList = ({
       {todos.map((todo) => (
         <ListItem key={todo.id}>
           <Checkbox
+            data-testid={`todo-checkbox-${todo.id}`}
             checked={todo.completed}
             onChange={() => handleToggleTodo(todo.id)}
           />
           <ListItemText
+            data-testid={`todo-text-${todo.id}`}
             primary={todo.text}
             secondary={`Deadline: ${format(
               parseISO(todo.deadline),
