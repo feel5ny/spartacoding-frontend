@@ -8,7 +8,7 @@ import {
 import { parseISO, format } from 'date-fns';
 import { Todo } from '../types/todo';
 import { Dispatch } from 'react';
-import { deleteTodo, updateToggle } from '../controllers/todo';
+import { deleteTodo, updateTodoToggle } from '../controllers/todo';
 
 export const TodoList = ({
   todos,
@@ -18,7 +18,7 @@ export const TodoList = ({
   setTodos: Dispatch<React.SetStateAction<Todo[]>>;
 }) => {
   const handleToggleTodo = (id: number) => {
-    setTodos(updateToggle(todos, id));
+    setTodos(updateTodoToggle(todos, id));
   };
 
   const handleDeleteTodo = (id: number) => {
@@ -27,13 +27,15 @@ export const TodoList = ({
 
   return (
     <List style={{ marginTop: '2rem' }}>
-      {todos.map((todo) => (
-        <ListItem key={todo.id}>
+      {todos.map((todo, idx) => (
+        <ListItem key={todo.id} data-testid={`todo-item-${idx}`}>
           <Checkbox
+            data-testid={`toggle-btn-${idx}`}
             checked={todo.completed}
             onChange={() => handleToggleTodo(todo.id)}
           />
           <ListItemText
+            data-testid={`todo-text-${idx}`}
             primary={todo.text}
             secondary={`Deadline: ${format(
               parseISO(todo.deadline),
@@ -44,6 +46,7 @@ export const TodoList = ({
             }}
           />
           <IconButton
+            data-testid={`delete-btn-${idx}`}
             edge="end"
             aria-label="delete"
             onClick={() => handleDeleteTodo(todo.id)}
