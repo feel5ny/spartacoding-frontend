@@ -18,14 +18,14 @@ jobs:
         id: restore-node-modules
         uses: actions/cache@v3
         with:
-          path: week-3/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('week-3/package-lock.json') }}
+          path: zz.home-work/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('zz.home-work/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node
 
       - name: Install dependencies
         if: steps.restore-node-modules.outputs.cache-hit != 'true'
         run: npm install
-        working-directory: week-3
+        working-directory: zz.home-work
 
   lint:
     runs-on: ubuntu-latest
@@ -43,18 +43,18 @@ jobs:
         id: restore-node-modules
         uses: actions/cache@v3
         with:
-          path: week-3/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('week-3/package-lock.json') }}
+          path: zz.home-work/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('zz.home-work/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node
 
       - name: Install dependencies (if not cached)
         if: steps.restore-node-modules.outputs.cache-hit != 'true'
         run: npm install
-        working-directory: week-3
+        working-directory: zz.home-work
 
       - name: Run lint
         run: npm run lint
-        working-directory: week-3
+        working-directory: zz.home-work
 
   test:
       runs-on: ubuntu-latest
@@ -72,18 +72,18 @@ jobs:
           id: restore-node-modules
           uses: actions/cache@v3
           with:
-            path: week-3/node_modules
-            key: ${{ runner.os }}-node-${{ hashFiles('week-3/package-lock.json') }}
+            path: zz.home-work/node_modules
+            key: ${{ runner.os }}-node-${{ hashFiles('zz.home-work/package-lock.json') }}
             restore-keys: ${{ runner.os }}-node
 
         - name: Install dependencies (if not cached)
           if: steps.restore-node-modules.outputs.cache-hit != 'true'
           run: npm install
-          working-directory: week-3
+          working-directory: zz.home-work
 
         - name: Run tests
           run: npm run test
-          working-directory: week-3
+          working-directory: zz.home-work
 
   build:
     runs-on: ubuntu-latest
@@ -101,15 +101,15 @@ jobs:
         id: restore-node-modules
         uses: actions/cache@v3
         with:
-          path: week-3/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('week-3/package-lock.json') }}
+          path: zz.home-work/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('zz.home-work/package-lock.json') }}
           restore-keys: ${{ runner.os }}-node
 
       - name: Install dependencies (if not cached)
         if: steps.restore-node-modules.outputs.cache-hit != 'true'
         run: npm install
-        working-directory: week-3
+        working-directory: zz.home-work
 
       - name: Run build
         run: npm run build
-        working-directory: week-3
+        working-directory: zz.home-work
