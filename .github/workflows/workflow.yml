@@ -1,4 +1,4 @@
-name: ci
+name: hoyeongrande-ci
 
 on: [push]
 
