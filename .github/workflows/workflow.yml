@@ -52,8 +52,8 @@ jobs:
         run: npm install
         working-directory: week-3
 
-      - name: Run init
-        run: npm run init
+      - name: Run lint
+        run: npm run lint
         working-directory: week-3
 
   test:
