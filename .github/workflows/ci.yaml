@@ -1,0 +1,63 @@
+name: 0biglife-ci
+
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
+
+jobs:
+  install-dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+
+      - name: Restore node modules from cache
+        id: restore-node-modules
+        uses: actions/cache@v3
+        with:
+          path: week-3/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('week-3/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node
+
+      - name: Install dependencies
+        if: steps.restore-node-modules.outputs.cache-hit != 'true'
+        run: npm install
+        working-directory: week-3
+
+  # 테스트 시작
+  test:
+    runs-on: ubuntu-latest
+    needs: install-dependencies
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "18"
+
+      - name: Restore node modules from cache
+        id: restore-node-modules
+        uses: actions/cache@v3
+        with:
+          path: week-3/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('week-3/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - name: Install dependencies (if not cached)
+        if: steps.restore-node-modules.outputs.cache-hit != 'true'
+        run: npm install
+        working-directory: week-3
+
+      - name: Run tests
+        run: npm run test # 유지(package.json)
+        working-directory: week-3
