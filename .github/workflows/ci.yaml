@@ -3,6 +3,7 @@ name: 0biglife-ci
 # Doc: https://docs.github.com/ko/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#pull_request
 # event : pull_request
 # activity types : opened, edited
+on:
   pull_request:
     types: [opened, edited]
 
