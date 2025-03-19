@@ -2,7 +2,9 @@ name: 0biglife-ci
 
 on:
   pull_request:
-    types: [opened, edited]
+    types:
+      - opened
+      - edited
 
 jobs:
   install-dependencies:
